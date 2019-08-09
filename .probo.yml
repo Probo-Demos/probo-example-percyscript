@@ -23,5 +23,6 @@ steps:
       [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
       cd $SRC_DIR
       nvm use 8
-      source /assets/.ENV > /dev/null 2>&1
+      chmod +x /assets/.ENV
+      bash /assets/.ENV > /dev/null 2>&1
       npm run snapshots
