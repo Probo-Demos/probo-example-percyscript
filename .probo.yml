@@ -5,8 +5,19 @@ steps:
   - name: Install todomvc, percy, and dependencies.
     plugin: Script
     script: |
-      source /assets/.ENV > /dev/null 2>&1
-      cd $SRC_DIR
       npm install
       ln -s /src /var/www/html
+  - name: Install nvm and use Node 8.
+    plugin: Script
+    script: |
+      curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
+      export NVM_DIR="$HOME/.nvm"
+      [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+      [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+  - name: Run percy.io snapshots.
+    plugin: Script
+    script: |
+      source /assets/.ENV > /dev/null 2>&1
+      cd $SRC_DIR
+      nvm use 8
       npm run snapshots
