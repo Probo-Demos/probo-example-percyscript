@@ -9,3 +9,4 @@ steps:
       cd $SRC_DIR
       npm install
       ln -s /src /var/www/html
+      npm run snapshots

@@ -2,7 +2,7 @@ const PercyScript = require('@percy/script');
 
 // A script to navigate our app and take snapshots with Percy.
 PercyScript.run(async (page, percySnapshot) => {
-  await page.goto('http://localhost:8000');
+  await page.goto('http://localhost');
   await percySnapshot('TodoMVC home page');
 
   // Enter a new to-do.
