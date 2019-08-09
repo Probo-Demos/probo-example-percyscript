@@ -8,3 +8,4 @@ steps:
       source /assets/.ENV > /dev/null 2>&1
       cd $SRC_DIR
       npm install
+      ln -s /src /var/www/html
