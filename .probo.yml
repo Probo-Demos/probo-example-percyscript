@@ -1,0 +1,27 @@
+image: proboci/ubuntu-16.04-lamp:php-7.2
+assets:
+  - .ENV
+steps:
+  - name: Install todomvc, percy, and dependencies..
+    plugin: Script
+    script: |
+      npm install
+      ln -s /src /var/www/html
+  - name: Install nvm and use Node 8.
+    plugin: Script
+    script: |
+      curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
+      export NVM_DIR="$HOME/.nvm"
+      [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+      [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+      nvm install 8
+  - name: Run percy.io snapshots.
+    plugin: Script
+    script: |
+      export NVM_DIR="$HOME/.nvm"
+      [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+      [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+      cd $SRC_DIR
+      nvm use 8
+      export PERCY_TOKEN=`cat /assets/.ENV`
+      npm run snapshots
